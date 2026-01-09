@@ -1,0 +1,96 @@
+name: Terraform CI
+
+on:
+  # Run on direct pushes to protected branches
+  push:
+    branches: [ main ]
+  # Run on PRs targeting main (including from develop)
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+  # Optionally run on develop pushes (can be removed if not needed)
+  # push:
+  #   branches: [ develop ]
+
+jobs:
+  terraform:
+    name: Terraform Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+    
+    - name: Terraform Format Check
+      run: terraform fmt -check -recursive
+      continue-on-error: false
+    
+    - name: Terraform Init
+      run: terraform init -backend=false
+    
+    - name: Terraform Validate
+      run: terraform validate
+    
+    - name: TFLint Setup
+      uses: terraform-linters/setup-tflint@v3
+      with:
+        tflint_version: latest
+    
+    - name: TFLint
+      run: |
+        tflint --init
+        tflint --format compact
+      continue-on-error: true
+  
+  security:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Run tfsec
+      uses: aquasecurity/tfsec-action@v1.0.0
+      with:
+        soft_fail: true
+    
+    - name: Run Checkov
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: .
+        framework: terraform
+        soft_fail: true
+  
+  documentation:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Verify README exists
+      run: test -f README.md
+    
+    - name: Verify example.tfvars exists
+      run: test -f example.tfvars
+    
+    - name: Check for TODO comments
+      run: |
+        if grep -r "TODO\|FIXME" *.tf; then
+          echo "Warning: Found TODO/FIXME comments"
+          exit 0
+        fi
+    
+    - name: Markdown Lint
+      uses: nosborn/github-action-markdown-cli@v3.2.0
+      with:
+        files: .
+        config_file: .markdownlint.json
+      continue-on-error: true
