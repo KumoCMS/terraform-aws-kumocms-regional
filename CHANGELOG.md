@@ -1,3 +1,10 @@
+## 1.0.0 (2026-01-09)
+
+
+### Features
+
+* initial release ([e11f686](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/e11f686d7298ef62061f4d44a514e608e90acee6))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
