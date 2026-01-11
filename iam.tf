@@ -64,7 +64,7 @@ resource "aws_iam_role_policy" "lambda_api_permissions" {
           "dynamodb:Query",
           "dynamodb:Scan"
         ]
-        Resource = "arn:aws:dynamodb:${var.aws_region}:*:table/${var.dynamodb_table_name}"
+        Resource = "arn:aws:dynamodb:${var.aws_region}:*:table/${local.dynamodb_table_name}"
       },
       {
         Effect = "Allow"

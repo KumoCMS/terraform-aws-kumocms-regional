@@ -36,4 +36,7 @@ locals {
   cognito_user_pool_arn = local.use_cognito_auth ? (
     var.create_cognito_user_pool ? aws_cognito_user_pool.main[0].arn : var.cognito_user_pool_arn
   ) : null
+
+  # Determine DynamoDB table name (created or provided)
+  dynamodb_table_name = var.create_dynamodb_table ? aws_dynamodb_table.metadata[0].name : var.dynamodb_table_name
 }

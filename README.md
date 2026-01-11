@@ -166,6 +166,56 @@ module "kumocms_regional" {
 }
 ```
 
+### DynamoDB Table Management
+
+The module supports two modes for DynamoDB table management:
+
+#### Option A: Create DynamoDB Global Table (Recommended)
+
+The module can create and manage a DynamoDB global table with optimal settings for KumoCMS:
+
+```hcl
+module "kumocms_regional" {
+  source = "git::https://github.com/kumocms/terraform-aws-kumocms-regional.git?ref=main"
+
+  # ... other configuration ...
+
+  # Create DynamoDB table with module
+  create_dynamodb_table = true
+  dynamodb_table_name   = "kumocms-prod-metadata"
+}
+```
+
+This creates a table with:
+- **Pay-per-request billing** (scales automatically)
+- **Streams enabled** for EventBridge integration
+- **Point-in-time recovery** for data protection
+- **Server-side encryption** enabled
+- **Global table replication** capability
+- **Global Secondary Index** for document type queries
+
+#### Option B: Use Existing DynamoDB Table
+
+If you manage the DynamoDB table separately (e.g., for multi-region global tables):
+
+```hcl
+module "kumocms_regional" {
+  source = "git::https://github.com/kumocms/terraform-aws-kumocms-regional.git?ref=main"
+
+  # ... other configuration ...
+
+  # Use existing DynamoDB table
+  create_dynamodb_table = false
+  dynamodb_table_name   = "kumocms-prod-global-metadata"  # Existing table name
+}
+```
+
+**Required table schema:**
+- Hash Key: `PK` (String)
+- Range Key: `SK` (String)
+- GSI: `DocumentTypeIndex` with hash key `documentType` and range key `uploadedAt`
+- Streams: Enabled (for EventBridge integration)
+
 ### Authentication Methods
 
 KumoCMS supports two authentication methods:
