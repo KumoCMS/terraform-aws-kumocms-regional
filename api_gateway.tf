@@ -559,6 +559,14 @@ resource "aws_api_gateway_stage" "main" {
   tags = local.common_tags
 }
 
+# API Gateway Account Settings for CloudWatch Logs
+resource "aws_api_gateway_account" "main" {
+  count               = var.create_iam_roles && var.enable_api_gateway_logs ? 1 : 0
+  cloudwatch_role_arn = aws_iam_role.api_gateway_cloudwatch[0].arn
+
+  depends_on = [aws_iam_role_policy_attachment.api_gateway_cloudwatch]
+}
+
 # API Gateway Method Settings
 resource "aws_api_gateway_method_settings" "main" {
   count       = var.enable_api_gateway_logs ? 1 : 0
@@ -571,4 +579,6 @@ resource "aws_api_gateway_method_settings" "main" {
     data_trace_enabled = true
     metrics_enabled    = true
   }
+
+  depends_on = [aws_api_gateway_account.main]
 }

@@ -40,47 +40,51 @@ resource "aws_iam_role_policy" "lambda_api_permissions" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:DeleteObject",
-          "s3:ListBucket"
-        ]
-        Resource = [
-          aws_s3_bucket.documents.arn,
-          "${aws_s3_bucket.documents.arn}/*"
-        ]
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "dynamodb:GetItem",
-          "dynamodb:PutItem",
-          "dynamodb:UpdateItem",
-          "dynamodb:DeleteItem",
-          "dynamodb:Query",
-          "dynamodb:Scan"
-        ]
-        Resource = "arn:aws:dynamodb:${var.aws_region}:*:table/${local.dynamodb_table_name}"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "secretsmanager:GetSecretValue"
-        ]
-        Resource = local.api_authorizer_secrets_arn
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "events:PutEvents"
-        ]
-        Resource = "arn:aws:events:${var.aws_region}:*:event-bus/default"
-      }
-    ]
+    Statement = concat(
+      [
+        {
+          Effect = "Allow"
+          Action = [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:DeleteObject",
+            "s3:ListBucket"
+          ]
+          Resource = [
+            aws_s3_bucket.documents.arn,
+            "${aws_s3_bucket.documents.arn}/*"
+          ]
+        },
+        {
+          Effect = "Allow"
+          Action = [
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+            "dynamodb:UpdateItem",
+            "dynamodb:DeleteItem",
+            "dynamodb:Query",
+            "dynamodb:Scan"
+          ]
+          Resource = "arn:aws:dynamodb:${var.aws_region}:*:table/${local.dynamodb_table_name}"
+        },
+        {
+          Effect = "Allow"
+          Action = [
+            "events:PutEvents"
+          ]
+          Resource = "arn:aws:events:${var.aws_region}:*:event-bus/default"
+        }
+      ],
+      local.is_private_api ? [
+        {
+          Effect = "Allow"
+          Action = [
+            "secretsmanager:GetSecretValue"
+          ]
+          Resource = local.api_authorizer_secrets_arn
+        }
+      ] : []
+    )
   })
 }
 
@@ -221,4 +225,31 @@ resource "aws_iam_role_policy" "api_gateway_authorizer_invocation" {
       }
     ]
   })
+}
+
+# IAM Role for API Gateway to write CloudWatch Logs
+resource "aws_iam_role" "api_gateway_cloudwatch" {
+  count = var.create_iam_roles && var.enable_api_gateway_logs ? 1 : 0
+  name  = "${local.resource_prefix}-api-gateway-cloudwatch-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "apigateway.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  tags = local.common_tags
+}
+
+resource "aws_iam_role_policy_attachment" "api_gateway_cloudwatch" {
+  count      = var.create_iam_roles && var.enable_api_gateway_logs ? 1 : 0
+  role       = aws_iam_role.api_gateway_cloudwatch[0].name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
 }
