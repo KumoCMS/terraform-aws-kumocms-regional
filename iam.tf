@@ -83,7 +83,6 @@ resource "aws_iam_role_policy" "lambda_api_permissions" {
     ]
   })
 }
-}
 
 # Lambda Execution Role for Event Processor
 resource "aws_iam_role" "lambda_event_processor" {
