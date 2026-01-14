@@ -54,9 +54,12 @@ resource "aws_dynamodb_table" "metadata" {
   }
 
   # Replica configuration for global table
-  # Primary replica is in the specified AWS region
-  replica {
-    region_name = var.aws_region
+  # Primary table is in the local region, replicas are in other regions
+  dynamic "replica" {
+    for_each = var.dynamodb_replica_regions
+    content {
+      region_name = replica.value
+    }
   }
 
   tags = merge(

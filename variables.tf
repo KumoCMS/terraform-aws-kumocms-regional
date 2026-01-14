@@ -87,6 +87,12 @@ variable "dynamodb_table_name" {
   type        = string
 }
 
+variable "dynamodb_replica_regions" {
+  description = "List of AWS regions for DynamoDB global table replicas (excluding the primary region)"
+  type        = list(string)
+  default     = []
+}
+
 variable "api_gateway_stage_name" {
   description = "API Gateway deployment stage name"
   type        = string
