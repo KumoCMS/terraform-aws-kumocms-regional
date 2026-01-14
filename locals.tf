@@ -23,9 +23,9 @@ locals {
   api_gateway_authorizer_invocation_role_arn = local.use_api_key_auth ? (var.create_iam_roles ? aws_iam_role.api_gateway_authorizer_invocation[0].arn : var.api_gateway_authorizer_invocation_role_arn) : null
 
   # Determine VPC endpoint to use (created or provided)
-  is_private_api      = var.api_gateway_endpoint_type == "PRIVATE"
-  vpc_endpoint_id     = local.is_private_api ? (var.create_vpc_endpoint ? aws_vpc_endpoint.api_gateway[0].id : var.vpc_endpoint_id) : null
-  create_sg_for_vpce  = local.is_private_api && var.create_vpc_endpoint && length(var.security_group_ids) == 0
+  is_private_api     = var.api_gateway_endpoint_type == "PRIVATE"
+  vpc_endpoint_id    = local.is_private_api ? (var.create_vpc_endpoint ? aws_vpc_endpoint.api_gateway[0].id : var.vpc_endpoint_id) : null
+  create_sg_for_vpce = local.is_private_api && var.create_vpc_endpoint && length(var.security_group_ids) == 0
 
   # Determine which authorizer to use based on auth_method
   use_api_key_auth = var.auth_method == "api_key"

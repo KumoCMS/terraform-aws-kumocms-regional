@@ -29,7 +29,7 @@ resource "aws_api_gateway_rest_api_policy" "main" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
+        Effect    = "Allow"
         Principal = "*"
         Action    = "execute-api:Invoke"
         Resource  = "${aws_api_gateway_rest_api.main.execution_arn}/*"
@@ -58,11 +58,11 @@ resource "aws_api_gateway_authorizer" "api_key" {
 
 # Cognito Authorizer
 resource "aws_api_gateway_authorizer" "cognito" {
-  count         = local.use_cognito_auth ? 1 : 0
-  name          = "${local.resource_prefix}-cognito-authorizer"
-  rest_api_id   = aws_api_gateway_rest_api.main.id
-  type          = "COGNITO_USER_POOLS"
-  provider_arns = [local.cognito_user_pool_arn]
+  count           = local.use_cognito_auth ? 1 : 0
+  name            = "${local.resource_prefix}-cognito-authorizer"
+  rest_api_id     = aws_api_gateway_rest_api.main.id
+  type            = "COGNITO_USER_POOLS"
+  provider_arns   = [local.cognito_user_pool_arn]
   identity_source = "method.request.header.Authorization"
 }
 

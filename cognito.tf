@@ -76,9 +76,9 @@ resource "aws_cognito_user_pool_client" "main" {
   user_pool_id = aws_cognito_user_pool.main[0].id
 
   # Token validity
-  access_token_validity  = 60  # minutes
-  id_token_validity      = 60  # minutes
-  refresh_token_validity = 30  # days
+  access_token_validity  = 60 # minutes
+  id_token_validity      = 60 # minutes
+  refresh_token_validity = 30 # days
 
   token_validity_units {
     access_token  = "minutes"
@@ -90,7 +90,7 @@ resource "aws_cognito_user_pool_client" "main" {
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code", "implicit"]
   allowed_oauth_scopes                 = ["email", "openid", "profile"]
-  
+
   # Callback URLs (customize as needed)
   callback_urls = var.cognito_callback_urls
   logout_urls   = var.cognito_logout_urls
