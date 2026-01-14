@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.3.1...v1.3.2) (2026-01-14)
+
+
+### Bug Fixes
+
+* iam policy extra closing brace ([#6](https://github.com/KumoCMS/terraform-aws-kumocms-regional/issues/6)) ([d4d94bb](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/d4d94bb60a0ec59a00420de8020c362fbe23664a))
+
 ## [1.3.1](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.3.0...v1.3.1) (2026-01-14)
 
 
