@@ -119,3 +119,18 @@ output "cognito_domain" {
   description = "Cognito User Pool domain (if created)"
   value       = var.create_cognito_user_pool && var.cognito_domain_prefix != null && length(aws_cognito_user_pool_domain.main) > 0 ? "https://${aws_cognito_user_pool_domain.main[0].domain}.auth.${var.aws_region}.amazoncognito.com" : null
 }
+
+output "dynamodb_table_name" {
+  description = "DynamoDB table name (created or provided)"
+  value       = local.dynamodb_table_name
+}
+
+output "dynamodb_table_arn" {
+  description = "DynamoDB table ARN (if created)"
+  value       = var.create_dynamodb_table && length(aws_dynamodb_table.metadata) > 0 ? aws_dynamodb_table.metadata[0].arn : null
+}
+
+output "dynamodb_table_stream_arn" {
+  description = "DynamoDB table stream ARN (if created)"
+  value       = var.create_dynamodb_table && length(aws_dynamodb_table.metadata) > 0 ? aws_dynamodb_table.metadata[0].stream_arn : null
+}

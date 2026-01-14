@@ -64,14 +64,14 @@ resource "aws_iam_role_policy" "lambda_api_permissions" {
           "dynamodb:Query",
           "dynamodb:Scan"
         ]
-        Resource = "arn:aws:dynamodb:${var.aws_region}:*:table/${var.dynamodb_table_name}"
+        Resource = "arn:aws:dynamodb:${var.aws_region}:*:table/${local.dynamodb_table_name}"
       },
       {
         Effect = "Allow"
         Action = [
           "secretsmanager:GetSecretValue"
         ]
-        Resource = var.api_authorizer_secrets_arn
+        Resource = local.api_authorizer_secrets_arn
       },
       {
         Effect = "Allow"
@@ -177,7 +177,7 @@ resource "aws_iam_role_policy" "lambda_authorizer_permissions" {
         Action = [
           "secretsmanager:GetSecretValue"
         ]
-        Resource = var.api_authorizer_secrets_arn
+        Resource = local.api_authorizer_secrets_arn
       }
     ]
   })

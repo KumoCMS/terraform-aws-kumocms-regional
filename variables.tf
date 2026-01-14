@@ -76,8 +76,14 @@ variable "s3_lifecycle_rules" {
   default = []
 }
 
+variable "create_dynamodb_table" {
+  description = "Whether to create a new DynamoDB table (true) or use an existing one (false)"
+  type        = bool
+  default     = false
+}
+
 variable "dynamodb_table_name" {
-  description = "Name of the DynamoDB table for metadata storage"
+  description = "Name of the DynamoDB table for metadata storage. If create_dynamodb_table is true, this will be the name of the created table. If false, this should be the name of an existing table."
   type        = string
 }
 
@@ -136,6 +142,7 @@ variable "enable_api_gateway_logs" {
 variable "api_authorizer_secrets_arn" {
   description = "ARN of AWS Secrets Manager secret containing API keys for authorization"
   type        = string
+  default     = null
 }
 
 variable "auth_method" {
