@@ -17,7 +17,7 @@ lambda_timeout                 = 30
 
 # ==================== Storage Configuration ====================
 
-s3_bucket_name      = "kumocms-dev-documents-us-east-1"
+s3_bucket_name       = "kumocms-dev-documents-us-east-1"
 enable_s3_versioning = true
 
 # Optional: S3 Lifecycle rules
