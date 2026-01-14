@@ -20,7 +20,6 @@ resource "aws_lambda_function" "api_handler" {
     variables = {
       S3_BUCKET_NAME      = aws_s3_bucket.documents.id
       DYNAMODB_TABLE_NAME = local.dynamodb_table_name
-      AWS_REGION          = var.aws_region
       SECRETS_ARN         = local.api_authorizer_secrets_arn
     }
   }
