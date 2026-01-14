@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.1.0...v1.1.1) (2026-01-14)
+
+
+### Bug Fixes
+
+* api gateway ([d2a6ca3](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/d2a6ca327a1d498ec1ff6ce53746a68bfd87e89f))
+
 ## [1.1.0](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.0.0...v1.1.0) (2026-01-14)
 
 
