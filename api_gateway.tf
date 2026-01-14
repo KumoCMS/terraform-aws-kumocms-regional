@@ -50,7 +50,7 @@ resource "aws_api_gateway_authorizer" "api_key" {
   count                  = local.use_api_key_auth ? 1 : 0
   name                   = "${local.resource_prefix}-api-key-authorizer"
   rest_api_id            = aws_api_gateway_rest_api.main.id
-  authorizer_uri         = aws_lambda_function.authorizer.invoke_arn
+  authorizer_uri         = aws_lambda_function.authorizer[0].invoke_arn
   authorizer_credentials = local.api_gateway_authorizer_invocation_role_arn
   type                   = "REQUEST"
   identity_source        = "method.request.header.Authorization"
