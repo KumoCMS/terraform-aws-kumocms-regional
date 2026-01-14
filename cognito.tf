@@ -52,6 +52,11 @@ resource "aws_cognito_user_pool" "main" {
   # MFA configuration
   mfa_configuration = var.cognito_mfa_configuration
 
+  # TOTP-based MFA configuration (required when mfa_configuration is not OFF)
+  software_token_mfa_configuration {
+    enabled = var.cognito_mfa_configuration != "OFF"
+  }
+
   # Enable advanced security features
   user_pool_add_ons {
     advanced_security_mode = "ENFORCED"
