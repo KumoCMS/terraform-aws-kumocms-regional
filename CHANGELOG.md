@@ -1,3 +1,11 @@
+## [1.1.0](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.0.0...v1.1.0) (2026-01-14)
+
+
+### Features
+
+* add dynamodb ([530d0c5](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/530d0c5b73b4a03c821ab752ccaa89431eade101))
+* add secret manager ([1fa5370](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/1fa5370dc0f6248ea40d37877fa5277839ac446f))
+
 ## 1.0.0 (2026-01-09)
 
 
