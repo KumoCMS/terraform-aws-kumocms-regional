@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.1.1...v1.2.0) (2026-01-14)
+
+
+### Features
+
+* mfa config ([e131ae7](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/e131ae77493a01aa0401e247cc3066e6b92f8540))
+
 ## [1.1.1](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.1.0...v1.1.1) (2026-01-14)
 
 
