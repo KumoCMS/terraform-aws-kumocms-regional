@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.3.0...v1.3.1) (2026-01-14)
+
+
+### Bug Fixes
+
+* iam policy error ([#5](https://github.com/KumoCMS/terraform-aws-kumocms-regional/issues/5)) ([0e10e15](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/0e10e157a75fd10f29fd1128aa15d80e9fe479d0))
+
 ## [1.3.0](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.2.0...v1.3.0) (2026-01-14)
 
 
