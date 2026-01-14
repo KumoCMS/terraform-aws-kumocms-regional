@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.2.0...v1.3.0) (2026-01-14)
+
+
+### Features
+
+* dynamodb replica ([#4](https://github.com/KumoCMS/terraform-aws-kumocms-regional/issues/4)) ([3da28d8](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/3da28d870b7a57792dbcdd0abb6ea5c169120d80))
+
 ## [1.2.0](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.1.1...v1.2.0) (2026-01-14)
 
 
