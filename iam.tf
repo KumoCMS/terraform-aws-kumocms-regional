@@ -71,7 +71,7 @@ resource "aws_iam_role_policy" "lambda_api_permissions" {
         Action = [
           "secretsmanager:GetSecretValue"
         ]
-        Resource = var.api_authorizer_secrets_arn
+        Resource = local.api_authorizer_secrets_arn
       },
       {
         Effect = "Allow"
@@ -177,7 +177,7 @@ resource "aws_iam_role_policy" "lambda_authorizer_permissions" {
         Action = [
           "secretsmanager:GetSecretValue"
         ]
-        Resource = var.api_authorizer_secrets_arn
+        Resource = local.api_authorizer_secrets_arn
       }
     ]
   })

@@ -142,6 +142,7 @@ variable "enable_api_gateway_logs" {
 variable "api_authorizer_secrets_arn" {
   description = "ARN of AWS Secrets Manager secret containing API keys for authorization"
   type        = string
+  default     = null
 }
 
 variable "auth_method" {
