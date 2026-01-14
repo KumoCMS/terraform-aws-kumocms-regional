@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.3.2...v1.3.3) (2026-01-14)
+
+
+### Bug Fixes
+
+* errors for v1.3.3 ([#7](https://github.com/KumoCMS/terraform-aws-kumocms-regional/issues/7)) ([d8d65c2](https://github.com/KumoCMS/terraform-aws-kumocms-regional/commit/d8d65c2447bf6900c598da94334e8912deba5a1f))
+
 ## [1.3.2](https://github.com/KumoCMS/terraform-aws-kumocms-regional/compare/v1.3.1...v1.3.2) (2026-01-14)
 
 
